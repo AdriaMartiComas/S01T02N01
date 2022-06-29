@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Venda {
 	private ArrayList<Producte> productes;
-	private float preuTotal;
+	private double preuTotal;
 	
-	public Venda(ArrayList<Producte> productes) {
+	public Venda() {
 		this.productes = new ArrayList<Producte>();
 	}
 
@@ -18,7 +18,7 @@ public class Venda {
 		this.productes = productes;
 	}
 
-	public float getPreuTotal() {
+	public double getPreuTotal() {
 		return preuTotal;
 	}
 
@@ -28,16 +28,28 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return "Venda [productes=" + productes + ", preuTotal=" + preuTotal + "]";
+		return "Venda [productes=" + productes + "\npreuTotal=" + preuTotal + "]";
 	}
 	
-	public void calcularTotal() {
-		System.out.println("Comença a funcionar");
-	}
-	
-	
+	public void calcularTotal(ArrayList<Producte> productes) {
+		int size = productes.size();
+		double total = 0;
+		
+		try {
+		
+			if (size == 0) {
+				throw new VendaBuidaException();
+			} else {
+				for (int i = 0; i<size; i++) {
+					total = total + productes.get(i).getPreu();
+				}
+			}
+		} catch (VendaBuidaException vbe){
+			System.out.println(vbe.getMessage());
+		}
+		
+		this.preuTotal = total;
 
-	
-	
+	}
 
 }
